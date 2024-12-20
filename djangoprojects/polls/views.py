@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.db.models import F
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Question
+from .models import Question,Choice
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
@@ -27,13 +28,15 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-
+@method_decorator(login_required,name="dispatch")
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
-
 def vote(request, question_id):
+    """
+    Handle the vote of a choice
+    """
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])

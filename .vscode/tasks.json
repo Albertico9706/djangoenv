@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Go current folder",
+            "hide": true,
+            "type": "shell",
+            "command": "cd ${workspaceFolder} "
+        },
+        {
+            "label": "Go project",
+            "hide": true,
+            "type": "shell",
+            "command": "cd ${workspaceFolder}\\djangoprojects "
+        },
+        {
+            "label": "Activate venv",
+            "type": "shell",
+            "hide": true,
+            "command": [
+                "venv\\scripts\\activate"
+            ]
+        },
+        {
+            "label": "server",
+            "hide": true,
+            "type": "shell",
+            "command": "python djangoprojects\\manage.py runserver"
+        },
+        {
+            "label": "RunServer",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Go current folder",
+                "Activate venv",
+                "Go project",
+                "server"
+            ],
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": []
+        }
+    ],
+}

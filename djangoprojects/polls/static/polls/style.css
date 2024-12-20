@@ -1,3 +1,21 @@
 li a {
-    color: green;
+    color: rgb(173, 194, 173);
+    & :visited{
+        color: blueviolet;
+    }
+}
+
+.sidebar-nav{
+grid-area: side;
+}
+
+main{
+    grid-area: main;
+}
+
+body{
+    display: grid;
+    grid-template-areas: 
+    "side main";
+    grid-template-columns: 120px 1fr;
 }
